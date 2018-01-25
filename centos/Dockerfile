@@ -7,6 +7,7 @@
 FROM		centos:centos7.1.1503
 
 ENV TZ "Asia/Shanghai"
+ENV LANG "en_US.utf-8"
 
 RUN yum install -y yum-utils
 RUN yum-config-manager --add-repo http://mirrors.aliyun.com/repo/Centos-7.repo

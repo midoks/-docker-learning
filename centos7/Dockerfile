@@ -8,6 +8,8 @@ FROM		centos:centos7.1.1503
 MAINTAINER  midoks <midoks@163.com>
 
 ENV TZ "Asia/Shanghai"
+ENV LANG "en_US.utf-8"
+
 ENV TERM xterm
 
 ADD aliyun-mirror.repo /etc/yum.repos.d/CentOS-Base.repo
