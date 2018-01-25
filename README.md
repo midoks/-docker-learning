@@ -49,13 +49,6 @@ docker images
 docker rmi ad673a791d21  #删除images
 ```
 
-# linux 
-```
-
-
-
-```
-
 
 # mac
 - https://docs.docker.com/docker-for-mac/
