@@ -6,9 +6,12 @@
 
 FROM		midoks/centos:7.1
 
-RUN	sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+ADD openresty.repo /etc/yum.repos.d/openresty.repo
 
-RUN yum install -y openresty
-RUN yum install -y GraphicsMagick
+#RUN sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+
+
+RUN yum install -y openresty GraphicsMagick
+
 
 ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf

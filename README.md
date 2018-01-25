@@ -42,8 +42,8 @@ docker run -t -i 23ac40ed7f8b /bin/bash #进入镜像
 
 docker stop $(docker ps -a -q) 		#停止所有的container，这样才能够删除其中的images
 docker rm -f $(docker ps -a -q)	#如果想要删除所有container的话再加一个指令
-docker rmi $(docker images |  awk "{print $3}") #删除所有镜像
-docker rmi $(docker images | grep "^<none>" | awk "{print $3}") #想要删除untagged images，也就是那些id为<None>的image的话可以用
+docker rmi -f $(docker images |  awk "{print $3}") #删除所有镜像
+docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}") #想要删除untagged images，也就是那些id为<None>的image的话可以用
 ```
 
 # 镜像的操作
