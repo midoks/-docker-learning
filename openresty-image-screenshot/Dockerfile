@@ -6,5 +6,9 @@
 
 FROM		midoks/centos:7.1
 
+
+RUN yum groupinstall "Development tools" 
 RUN	sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+
+
 

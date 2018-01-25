@@ -37,6 +37,9 @@ docker rm -f web 					#删除容器
 docker rmi -f web 					#删除镜像
 
 
+docker run -t -i 23ac40ed7f8b /bin/bash #进入镜像
+
+
 docker stop $(docker ps -a -q) 		#停止所有的container，这样才能够删除其中的images
 docker rm $(docker ps -a -q)	#如果想要删除所有container的话再加一个指令
 docker rmi $(docker images |  awk "{print $3}") #删除所有镜像
