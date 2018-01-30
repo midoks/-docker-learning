@@ -18,7 +18,7 @@ module(...,package.seeall)
 
 enabled_log          = true
 lua_log_level        = ngx.NOTICE
-gm_path              = 'c:program files\graphicsmagick-1.3.28-q8\gm'
+gm_path              = 'gm'
 img_background_color = 'white'
 enabled_default_img  = true
 default_img_uri      = '/default/notfound.jpg' 
@@ -38,7 +38,7 @@ default_uri_reg      = '_[0-9]+x[0-9]+'
 ]]
 cfg = {
     {
-        dir   = 'photos',
+        dir   = 'image',
         sizes = {'50x50^','100x100>','140x140$','250x250!','300x300_','350x350'},
     },
     {   dir   = 'avatars',
