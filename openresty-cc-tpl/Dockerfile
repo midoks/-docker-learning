@@ -23,8 +23,11 @@ ADD app/index.html /www/app
 ADD conf/cc.conf /usr/local/openresty/nginx/conf/vhost
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
 
+
 RUN chown -R www:www /www
 RUN chown -R www:www /usr/local/openresty
+
+RUN chmod +s /usr/local/openresty/nginx/sbin/nginx
 
 
 ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
