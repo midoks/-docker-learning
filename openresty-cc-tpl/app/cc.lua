@@ -42,7 +42,7 @@ if jspara then
             else
                    url=ngx.var.scheme.."://"..ngx.var.host..uri.."?jskey="..jspara
             end
-            local jscode="<script>window.location.href='"..url.."';</script>"
+            local jscode="window.location.href='"..url.."';"
             ngx.say(jscode)
         end
     end
@@ -56,6 +56,6 @@ else
     else
         url = ngx.var.scheme.."://"..ngx.var.host..uri.."?jskey="..random
     end
-    local jscode="<script>window.location.href='"..url.."';</script>"
+    local jscode="window.location.href='"..url.."';"
     ngx.say(jscode)
 end
