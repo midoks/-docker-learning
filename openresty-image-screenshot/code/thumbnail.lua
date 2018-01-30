@@ -140,7 +140,7 @@ else
 		lua_log('gm_command======'..gm_command)
         _,_,img_thumbnail_dir,img__thumbnail_filename = string.find(img_thumbnail_path,'(.-)([^/]*)$')
         lua_log("gm_command.."..img_thumbnail_dir, ngx.ERR)
-        -- os.execute('mkdir -p '..img_thumbnail_dir)
+        os.execute('mkdir -p '..img_thumbnail_dir)
         os.execute(gm_command)
     end
     ngx.req.set_uri('/thumbnail'..uri)
