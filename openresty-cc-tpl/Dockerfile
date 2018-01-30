@@ -21,7 +21,7 @@ ADD app/cc.lua /www/app
 ADD app/index.html /www/app
 
 ADD conf/cc.conf /usr/local/openresty/nginx/conf/vhost
-# ADD conf/nginx.conf /usr/local/openresty/nginx/conf
+ADD conf/nginx.conf /usr/local/openresty/nginx/conf
 
 
 RUN chown -R www:www /www
