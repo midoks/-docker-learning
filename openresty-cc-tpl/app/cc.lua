@@ -1,10 +1,11 @@
 
--- 防止CC攻击
-
-
 local ip = ngx.var.binary_remote_addr
+
+-- ngx.say(ngx.var.remote_addr)
+-- ngx.exit(200)
+
 local limit = ngx.shared.limit
-local req, _ =limit:get(ip)
+local req, _ = limit:get(ip)
 
 if req then
     if req > 20 then
@@ -38,24 +39,24 @@ if jspara then
         else
             local url=''
             if ngx.var.args then
-                   url=ngx.var.scheme.."://"..ngx.var.host..uri.."&jskey="..jspara
+                   url=ngx.var.scheme.."://"..ngx.var.host..":"..ngx.var.server_port..uri.."&jskey="..jspara
             else
-                   url=ngx.var.scheme.."://"..ngx.var.host..uri.."?jskey="..jspara
+                   url=ngx.var.scheme.."://"..ngx.var.host..":"..ngx.var.server_port..uri.."?jskey="..jspara
             end
-            local jscode="window.location.href='"..url.."';"
+            local jscode="<script>window.location.href='"..url.."';</script>"
             ngx.say(jscode)
         end
     end
 else
-	math.randomseed( os.time() );
+    math.randomseed( os.time() );
     local random = math.random(100000,999999)
-    jsjump:set(ip, random,60)
+    jsjump:set(ip, random, 60)
     local url = ''
     if ngx.var.args then
-        url = ngx.var.scheme.."://"..ngx.var.host..uri.."&jskey="..random
+        url = ngx.var.scheme.."://"..ngx.var.host..":"..ngx.var.server_port..uri.."&jskey="..random
     else
-        url = ngx.var.scheme.."://"..ngx.var.host..uri.."?jskey="..random
+        url = ngx.var.scheme.."://"..ngx.var.host..":"..ngx.var.server_port..uri.."?jskey="..random
     end
-    local jscode="window.location.href='"..url.."';"
+    local jscode="<script>window.location.href='"..url.."';</script>"
     ngx.say(jscode)
 end
