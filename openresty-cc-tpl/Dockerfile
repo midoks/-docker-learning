@@ -27,7 +27,9 @@ ADD conf/nginx.conf /usr/local/openresty/nginx/conf
 RUN chown -R www:www /www
 RUN chown -R www:www /usr/local/openresty
 
-RUN chmod +s /usr/local/openresty/nginx/sbin/nginx
+RUN chown root:www /usr/local/openresty/nginx/sbin/nginx
+RUN chmod 750 /usr/local/openresty/nginx/sbin/nginx
+RUN chmod u+s /usr/local/openresty/nginx/sbin/nginx
 
 
 ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
