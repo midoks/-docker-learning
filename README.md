@@ -31,7 +31,7 @@ docker ps
 
 
 docker start web 					#启动容器名为web的容器
-docker exec -it web bash 			#进入容器
+docker exec -it web /bin/bash 		#进入容器
 docker stop web 					#停止容器
 docker rm -f web 					#删除容器
 docker rmi -f web 					#删除镜像
