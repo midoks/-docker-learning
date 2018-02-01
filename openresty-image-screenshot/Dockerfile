@@ -13,7 +13,6 @@ ADD openresty.repo /etc/yum.repos.d/openresty.repo
 
 
 RUN yum install -y openresty GraphicsMagick
-RUN yum install -y opencv*
 
 RUN groupadd www
 RUN useradd -g www www
@@ -29,10 +28,30 @@ ADD app/default/notfound.jpg /www/app/default
 ADD app/thumbnail.lua /www/app
 ADD app/index.html /www/app
 
+
+#opencv install https://github.com/opencv/opencv/archive/2.4.9.tar.gz
+ADD opencv-2.4.9.tar.gz /www/
+#RUN tar zxvf /www/opencv-2.4.9.tar.gz
+RUN cd /www/opencv-2.4.9/ && cmake CMakeLists.txt && make -j $(cat /proc/cpuinfo|grep processor|wc -l) && make install
+
 ADD cmd/tclip.sh /www/cmd
 ADD cmd/tclip.cpp /www/cmd
 
-RUN chown -R www:www /www
+
+RUN chmod +x /www/cmd/tclip.sh
+RUN echo "/usr/local/lib/" > /etc/ld.so.conf.d/opencv.conf
+RUN ldconfig -v
+
+
+ENV PKG_CONFIG_PATH=/usr/lib/pkgconfig/:/usr/local/lib/pkgconfig
+
+
+RUN cd /www/cmd && /bin/sh tclip.sh
+RUN cd /www/cmd && cp -f tclip /bin
+
+
+RUN chown -R www:www /www/cmd
+RUN chown -R www:www /www/app
 
 ADD app/config.lua /usr/local/openresty/lualib
 
@@ -43,7 +62,6 @@ RUN chown -R www:www /usr/local/openresty
 RUN chown root:www /usr/local/openresty/nginx/sbin/nginx
 RUN chmod 750 /usr/local/openresty/nginx/sbin/nginx
 RUN chmod u+s /usr/local/openresty/nginx/sbin/nginx
-
 
 
 ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf

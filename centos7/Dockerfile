@@ -9,9 +9,9 @@ FROM 		ansible/centos7-ansible
 MAINTAINER  midoks <midoks@163.com>
 
 ENV TZ "Asia/Shanghai"
-#RUN echo "export LC_ALL=en_US.UTF-8" >> /etc/profile 
-
+ENV LC_ALL "en_US.UTF-8"
 ENV TERM xterm
+
 
 ADD aliyun-mirror.repo /etc/yum.repos.d/CentOS-Base.repo
 ADD aliyun-epel.repo /etc/yum.repos.d/epel.repo
