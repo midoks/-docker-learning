@@ -45,4 +45,5 @@ RUN chmod 750 /usr/local/openresty/nginx/sbin/nginx
 RUN chmod u+s /usr/local/openresty/nginx/sbin/nginx
 
 
+
 ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
