@@ -13,6 +13,7 @@ ADD openresty.repo /etc/yum.repos.d/openresty.repo
 
 
 RUN yum install -y openresty GraphicsMagick
+RUN yum install -y opencv*
 
 RUN groupadd www
 RUN useradd -g www www
@@ -21,11 +22,15 @@ RUN mkdir -p /www/app
 RUN mkdir -p /www/app/image
 RUN mkdir -p /www/app/default
 RUN mkdir -p /www/app/thumbnail
+RUN mkdir -p /www/cmd
 
 ADD app/image/img1.jpg /www/app/image
 ADD app/default/notfound.jpg /www/app/default
 ADD app/thumbnail.lua /www/app
 ADD app/index.html /www/app
+
+ADD cmd/tclip.sh /www/cmd
+ADD cmd/tclip.cpp /www/cmd
 
 RUN chown -R www:www /www
 
