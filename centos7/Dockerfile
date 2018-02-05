@@ -9,7 +9,7 @@ FROM 		ansible/centos7-ansible
 MAINTAINER  midoks <midoks@163.com>
 
 ENV TZ "Asia/Shanghai"
-ENV LC_ALL "en_US.UTF-8"
+#ENV LC_ALL "en_US.UTF-8"
 ENV TERM xterm
 
 

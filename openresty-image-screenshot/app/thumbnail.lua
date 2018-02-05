@@ -4,6 +4,7 @@
 
 local c  = require 'config'
 
+
 --[[
 	uri               :链接地址，如/goods/0007/541/001_328x328.jpg
 	ngx_img_root      :图片根目录
@@ -102,7 +103,7 @@ local function generate_gm_command(img_crop_type,img_original_path,img_size,img_
 	return cmd
 end
 
-lua_log("ngx_thumbnail_root======="..ngx_thumbnail_root)
+lua_log("ngx_thumbnail_root======="..ngx_thumbnail_root ,ngx.ERR)
 	
 if not table.contains(c.cfg, uri) then
     lua_log("404:"..uri..' is not match!',ngx.ERR)
@@ -110,11 +111,10 @@ if not table.contains(c.cfg, uri) then
 else
     lua_log(uri..' is match!')
 	local img_original_uri = string.gsub(uri, cur_uri_reg, '')
-	lua_log('img_original_uri_old===' .. uri, ngx.ERR)
+	lua_log('img_original_uri_old===' .. img_original_uri, ngx.ERR)
 	lua_log('cur_uri_reg===' .. cur_uri_reg, ngx.ERR)	
 	lua_log('img_original_uri_new===' .. img_original_uri,ngx.ERR)
 	local img_exist = io.open(ngx_img_root .. img_original_uri)
-	lua_log("1.."..ngx_img_root .. img_original_uri, ngx.ERR)
 	if not img_exist then
 		if not c.enabled_default_img then
 			lua_log(img_original_uri..' is not exist!',ngx.ERR)
@@ -139,9 +139,11 @@ else
     if (gm_command) then
 		lua_log('gm_command======'..gm_command)
         _,_,img_thumbnail_dir,img__thumbnail_filename = string.find(img_thumbnail_path,'(.-)([^/]*)$')
-        lua_log("gm_command.."..img_thumbnail_dir, ngx.ERR)
         os.execute('mkdir -p '..img_thumbnail_dir)
         os.execute(gm_command)
+        
     end
-    ngx.req.set_uri('/thumbnail'..uri)
+    
+    ngx.header['-------ttt------'] = ngx.var.file
+    ngx.req.set_uri('/thumbnail'..ngx.var.uri, true);
 end
