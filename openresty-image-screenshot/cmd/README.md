@@ -18,7 +18,7 @@ chmod +x ./tclip.sh
 
 ### 二、命令行
 
-```bash
+```
 参数说明：
     -s 原图路径
     -d 裁剪后的图片保存路径
@@ -31,9 +31,3 @@ chmod +x ./tclip.sh
 
 ./tclip -s a.jpg -d a_dest.jpg -w 400 -h 200
 ```
-
-## 贡献者
-
-* jonnywang [https://github.com/jonnywang](https://github.com/jonnywang)
-
-
