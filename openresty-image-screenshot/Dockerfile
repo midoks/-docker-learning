@@ -23,7 +23,17 @@ RUN mkdir -p /www/app/thumbnail
 RUN mkdir -p /www/cmd
 
 ADD app/image/img1.jpg /www/app/image
-ADD app/thumbnail.lua /www/app
+ADD app/image/img2.jpg /www/app/image
+ADD app/image/img3.jpg /www/app/image
+ADD app/image/img4.jpg /www/app/image
+ADD app/image/img5.jpg /www/app/image
+ADD app/404.lua /www/app
+ADD app/curl.lua /www/app
+ADD app/format.lua /www/app
+ADD app/quality.lua /www/app
+ADD app/tclip.lua /www/app
+ADD app/thumb.lua /www/app
+ADD app/thumb_fixed.lua /www/app
 ADD app/index.html /www/app
 
 
