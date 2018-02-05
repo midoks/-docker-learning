@@ -5,7 +5,7 @@
 docker build -t midoks/openresty-rtmp:1.0 .
 
 
-docker run -d -p 1011:1011 --name openresty-rtmp midoks/openresty-rtmp:1.0
+docker run -d -p 1012:80 --name openresty-rtmp midoks/openresty-rtmp:1.0
 
 docker exec -it openresty-rtmp /bin/bash
 

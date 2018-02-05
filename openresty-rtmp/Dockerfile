@@ -6,7 +6,7 @@
 
 FROM		midoks/centos:7.1
 
-RUN wget https://openresty.org/download/openresty-1.13.6.1.tar.gz
-RUN wget https://github.com/arut/nginx-rtmp-module/archive/v1.2.1.tar.gz
+RUN wget -O openresty-1.13.6.1.tar.gz https://openresty.org/download/openresty-1.13.6.1.tar.gz
+RUN wget -O nginx-rtmp-module.tar.gz https://github.com/arut/nginx-rtmp-module/archive/v1.2.1.tar.gz
 
 #ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
