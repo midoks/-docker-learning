@@ -25,4 +25,7 @@ RUN cd /www/source/openresty-1.13.6.1 && ./configure \
 --add-module=/www/source/nginx-rtmp-module-1.2.1 --with-http_ssl_module \
 && gmake && gmake install
 
-#ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
+
+ADD conf/nginx.conf /usr/local/openresty/nginx/conf
+
+ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
