@@ -5,11 +5,11 @@
 docker build -t midoks/openresty-rtmp:1.0 .
 
 
+docker rm -f $(docker ps -a -q)
+
 docker run -d -p 1012:80 --name openresty-rtmp midoks/openresty-rtmp:1.0
 
 docker exec -it openresty-rtmp /bin/bash
-
-docker rm -f $(docker ps -a -q)
 
 tail -f /usr/local/openresty/nginx/logs/error.log
 tail -f /usr/local/openresty/nginx/logs/access.log
