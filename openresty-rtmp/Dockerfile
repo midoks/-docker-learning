@@ -6,7 +6,6 @@
 
 FROM		midoks/centos:7.1
 
-
 RUN mkdir -p /www/source
 
 RUN wget -O /www/source/openresty-1.13.6.1.tar.gz https://openresty.org/download/openresty-1.13.6.1.tar.gz
