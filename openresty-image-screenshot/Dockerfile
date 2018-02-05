@@ -61,7 +61,7 @@ RUN cd /www/cmd && cp -f tclip /bin
 RUN chown -R www:www /www/cmd
 RUN chown -R www:www /www/app
 
-ADD app/config.lua /usr/local/openresty/lualib
+ADD lua-resty-gm/lib /usr/local/openresty/resty/
 
 RUN mkdir -p /usr/local/openresty/nginx/conf/vhost
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
