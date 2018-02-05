@@ -14,4 +14,7 @@ RUN wget -O /www/source/nginx-rtmp-module.tar.gz https://github.com/arut/nginx-r
 RUN tar -zxvf /www/source/openresty-1.13.6.1.tar.gz -C /www/source/
 RUN tar -zxvf /www/source/nginx-rtmp-module.tar.gz -C /www/source/
 
+
+RUN /www/source/openresty-1.13.6.1/configure --add-module=/www/source/nginx-rtmp-module-1.2.1
+
 #ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
