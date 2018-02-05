@@ -6,7 +6,10 @@
 
 FROM		midoks/centos:7.1
 
+ENV LANG "C.UTF-8"
+
 RUN mkdir -p /www/source
+
 
 RUN yum install -y readline-devel pcre-devel openssl-devel gcc tcl
 
