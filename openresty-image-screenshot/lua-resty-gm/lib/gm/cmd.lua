@@ -34,6 +34,7 @@ end
 	@param q	int :quality
 ]]
 function _M.gm_format(self,o_img, n_img, q)
+	local q = tonumber(q)
 	local cmd = ''
 	if q > 0 then
 		cmd = "convert -quality " .. q .. " "..o_img.." +profile \"*\" "..n_img

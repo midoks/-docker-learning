@@ -7,7 +7,7 @@ os.execute('mkdir -p '..string.match(ngx.var.thumbnail_filepath, "^.*/"))
 local g = gcmd:new()
 
 g:D(true)
-g:gm_format(ngx.var.request_filepath , ngx.var.thumbnail_filepath)
+g:gm_format(ngx.var.request_filepath , ngx.var.thumbnail_filepath, 0)
 
 g:run()
 ngx.req.set_uri('/thumbnail'..ngx.var.uri, true);
