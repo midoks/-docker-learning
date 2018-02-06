@@ -4,6 +4,7 @@
 ### Docker 安装
 - http://www.docker.com/
 - https://get.daocloud.io/toolbox/
+- http://www.linuxprobe.com/docker-windows-install.html
 
 ### 集群相关
 ```

@@ -25,6 +25,52 @@ RUN cd /www/source/openresty-1.13.6.1 && ./configure \
 --add-module=/www/source/nginx-rtmp-module-1.2.1 --with-http_ssl_module \
 && gmake && gmake install
 
+RUN wget -O /www/source/ffmpeg-3.1.tar.gz http://www.ffmpeg.org/releases/ffmpeg-3.1.tar.gz
+RUN tar -zxvf /www/source/ffmpeg-3.1.tar.gz -C /www/source/
+
+#RUN wget -O /www/source/yasm-1.3.0.tar.gz http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+#RUN tar -zxvf /www/source/yasm-1.3.0.tar.gz -C /www/source/
+
+#RUN cd /www/source/yasm-1.3.0 && ./configure \
+#&& make && make install
+
+RUN yum -y install yasm
+RUN yum -y install libtool
+
+RUN wget -O /www/source/faac-1.29.9.2.tar.gz https://sourceforge.net/projects/faac/files/faac-src/faac-1.29/faac-1.29.9.2.tar.gz
+RUN tar -zxvf /www/source/faac-1.29.9.2.tar.gz -C /www/source/
+
+RUN cd /www/source/faac-1.29.9.2 && ./configure \
+&& make && make install
+
+
+RUN wget -O /www/source/lame-3.100.tar.gz https://jaist.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
+RUN tar -zxvf /www/source/lame-3.100.tar.gz -C /www/source/
+
+RUN cd /www/source/lame-3.100 && ./configure \
+&& make && make install
+
+
+RUN wget -O /www/source/last_x264.tar.bz2 ftp://ftp.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
+RUN tar -jxvf /www/source/last_x264.tar.bz2 -C /www/source/
+
+RUN yum install -y nasm
+
+RUN cd /www/source/x264* && ./configure --prefix=/usr/local \
+--disable-asm –enable-pthread –enable-shared \
+&& make && make install
+
+RUN echo "/usr/local/lib/" > /etc/ld.so.conf.d/lib.conf
+RUN ldconfig -v
+
+RUN cd /www/source/ffmpeg-3.1 && ./configure \
+--prefix=/usr/local \
+--enable-gpl --enable-version3 --enable-nonfree --enable-shared \
+--enable-zlib --enable-bzlib --enable-libmp3lame --enable-libx264 \
+--enable-pic --enable-libfaac \
+&& make && make install
+
+
 
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
 
