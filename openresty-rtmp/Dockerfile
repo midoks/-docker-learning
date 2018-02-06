@@ -54,10 +54,10 @@ RUN cd /www/source/lame-3.100 && ./configure \
 RUN wget -O /www/source/last_x264.tar.bz2 ftp://ftp.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
 RUN tar -jxvf /www/source/last_x264.tar.bz2 -C /www/source/
 
-RUN yum install -y nasm
+#RUN yum install -y nasm
 
 RUN cd /www/source/x264* && ./configure --prefix=/usr/local \
---disable-asm –enable-pthread –enable-shared \
+--disable-asm \
 && make && make install
 
 RUN echo "/usr/local/lib/" > /etc/ld.so.conf.d/lib.conf
@@ -72,7 +72,29 @@ RUN cd /www/source/ffmpeg-3.1 && ./configure \
 
 # --enable-libx264
 
+RUN ldconfig -v
+
+RUN groupadd www
+RUN useradd -g www www
+
+RUN mkdir -p /www/app
+RUN mkdir -p /www/conf
+
+RUN echo "hello world!!!" > /www/app/index.html
+
 
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
 
+
+
+ADD conf/http.conf /www/conf
+ADD conf/rtmp.rw /www/conf
+
+RUN wget -O /www/app/test.mp4 http://img.ksbbs.com/asset/Mon_1703/d30e02a5626c066.mp4
+
+RUN chown -R www:www /www/app
+RUN chown -R www:www /www/conf
+
 ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
+ADD	supervisor_mp4_push.conf /etc/supervisor.conf.d/supervisor_mp4_push.conf
+

@@ -1,0 +1,12 @@
+rtmp {
+    server {
+        listen 1935;
+
+        application live {
+            live on;
+            hls on;
+            hls_path /www/app;
+            hls_fragment 5s;
+        }
+    }
+}
