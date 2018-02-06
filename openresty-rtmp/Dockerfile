@@ -66,10 +66,11 @@ RUN ldconfig -v
 RUN cd /www/source/ffmpeg-3.1 && ./configure \
 --prefix=/usr/local \
 --enable-gpl --enable-version3 --enable-nonfree --enable-shared \
---enable-zlib --enable-bzlib --enable-libmp3lame --enable-libx264 \
+--enable-zlib --enable-bzlib --enable-libmp3lame  \
 --enable-pic --enable-libfaac \
 && make && make install
 
+# --enable-libx264
 
 
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
