@@ -79,13 +79,17 @@ RUN useradd -g www www
 RUN mkdir -p /www/app
 RUN mkdir -p /www/conf
 
-RUN echo "hello world!!!" > /www/app/index.html
+RUN wget -O /www/app/test.mp4 http://img.ksbbs.com/asset/Mon_1703/d30e02a5626c066.mp4
+
+
+ADD crossdomain.xml /www/app/
+ADD index.html /www/app/index.html
+ADD stat.xsl /www/app/stat.xsl
 
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
 ADD conf/http.conf /www/conf
 ADD conf/rtmp.rw /www/conf
 
-RUN wget -O /www/app/test.mp4 http://img.ksbbs.com/asset/Mon_1703/d30e02a5626c066.mp4
 
 RUN chown -R www:www /www/app
 RUN chown -R www:www /www/conf
