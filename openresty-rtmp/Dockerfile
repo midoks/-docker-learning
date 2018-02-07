@@ -60,8 +60,6 @@ RUN cd /www/source/x264* && ./configure --prefix=/usr/local \
 --disable-asm \
 && make && make install
 
-RUN echo "/usr/local/lib/" > /etc/ld.so.conf.d/lib.conf
-RUN ldconfig -v
 
 RUN cd /www/source/ffmpeg-3.1 && ./configure \
 --prefix=/usr/local \
@@ -72,6 +70,7 @@ RUN cd /www/source/ffmpeg-3.1 && ./configure \
 
 # --enable-libx264
 
+RUN echo "/usr/local/lib/" > /etc/ld.so.conf.d/lib.conf
 RUN ldconfig -v
 
 RUN groupadd www
@@ -82,11 +81,7 @@ RUN mkdir -p /www/conf
 
 RUN echo "hello world!!!" > /www/app/index.html
 
-
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
-
-
-
 ADD conf/http.conf /www/conf
 ADD conf/rtmp.rw /www/conf
 
