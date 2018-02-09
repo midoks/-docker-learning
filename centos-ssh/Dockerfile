@@ -19,4 +19,6 @@ RUN sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/ss
 #setting password
 RUN echo '123123' | passwd root --stdin
 
-RUN /sbin/sshd -D &
+
+RUN sh  /sbin/sshd -D &
+#CMD  ["/sbin/sshd ","-D"]
