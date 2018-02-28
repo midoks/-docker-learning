@@ -9,9 +9,19 @@ yum install -y docker
 
 swapoff -a
 
-
 /lib/systemd/system/
+```
+
+### kube-master
+
+```
+mkdir -p /opt/kubernetes/{bin,cfg}
 
 
 
+```
+
+### kube-node
+
+```
 ```
