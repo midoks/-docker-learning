@@ -7,5 +7,11 @@ yum install -y kubernetes
 yum install -y docker
 
 
+swapoff -a
+
+
+/lib/systemd/system/
+
+
 
 ```
