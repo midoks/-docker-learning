@@ -23,9 +23,6 @@ KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0"
 #API服务监听端口
 KUBE_API_PORT="--insecure-port=8080"
 
-# Kubelet端口。弃用
-# NODE_PORT="--kubelet-port=10250"
-
 # 对集群中成员提供API服务地址
 KUBE_ADVERTISE_ADDR="--advertise-address=${MASTER_ADDRESS}"
 
