@@ -8,6 +8,7 @@ yum install -y docker
 
 
 swapoff -a
+yum install lrzsz -y
 
 /lib/systemd/system/
 ```
@@ -52,6 +53,9 @@ mkdir -p /opt/kubernetes/{bin,cfg}
 
 ```
 mkdir -p /opt/kubernetes/{bin,cfg}
+
+./kubelet.sh 192.168.187.132 192.168.187.133 10.10.10.2
+./proxy.sh 192.168.187.132 192.168.187.133
 
 
 ```
