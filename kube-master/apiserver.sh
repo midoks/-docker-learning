@@ -63,7 +63,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 
 [Service]
 EnvironmmentFile=-/opt/kubernetes/cfg/kube-apiserver
-ExecStart=/usr/bin/kube-apiserver ${KUBE_APISERVER_OPTS}
+ExecStart=/opt/kubernetes/bin/kube-apiserver ${KUBE_APISERVER_OPTS}
 Restart=on-failure
 
 [Install]
