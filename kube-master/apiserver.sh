@@ -15,7 +15,11 @@ KUBE_LOGTOSTDERR="--logtostderr=true"
 KUBE_LOG_LEVEL="--v=4"
 
 #Etcd服务地址,默认etcd3
-KUBE_ETCD_VERSION="--storage-backend=etcd2"
+#KUBE_ETCD_VERSION="--storage-backend=etcd3"
+
+# --etcd-servers=[]: List of etcd servers to watch (http://ip:port),
+# comma separated. Mutually exclusive with -etcd-config
+KUBE_ETCD_SERVERS="--etcd-servers=${ETCD_SERVERS}"
 
 #API服务监听地址
 KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0"
