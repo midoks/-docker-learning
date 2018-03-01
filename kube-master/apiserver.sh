@@ -73,6 +73,6 @@ Restart=on-failure
 WantedBy=multi-user.target
 EOF
 
-systemctl daemon-relaod
+systemctl daemon-reload
 systemctl enable kube-apiserver
 systemctl restart kube-apiserver
