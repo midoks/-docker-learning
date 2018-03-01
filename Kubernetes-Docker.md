@@ -12,6 +12,11 @@ swapoff -a
 /lib/systemd/system/
 ```
 
+
+```
+wget -O /etc/yum.repos.d/Centos-7.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+```
+
 ### etcd 安装
 ```
 yum install -y etcd
@@ -29,14 +34,24 @@ service etcd restart
 ### kube-master
 
 ```
+systemctl stop firewalld && systemctl disable firewalld
+setenforce 0
+
 mkdir -p /opt/kubernetes/{bin,cfg}
 
 
-./apiserver.sh 192.168.187.132 http://192.192.168.187.132:2379
+./apiserver.sh 192.168.187.132 http://192.168.187.132:2379
+
+./scheduler.sh 192.168.187.132
+
+./controller-manager.sh 192.168.187.132
 
 ```
 
 ### kube-node
 
 ```
+mkdir -p /opt/kubernetes/{bin,cfg}
+
+
 ```

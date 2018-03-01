@@ -34,7 +34,7 @@ KUBE_ADVERTISE_ADDR="--advertise-address=${MASTER_ADDRESS}"
 KUBE_ALLOW_PRIV="--allow-privileged=false"
 
 #集群分配的IP范围
-KUBE_SERVICE_ADDRESS="--service-cluster-ip-range=${SERVICE_CLUSTER_IP_RANGE}"
+KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=${SERVICE_CLUSTER_IP_RANGE}"
 
 #控制资源进入集群,默认AlwayAdmin
 # --admission-control="AlwaysAdmit": Ordered list of plug-ins
@@ -48,7 +48,7 @@ KUBE_ADMSSION_CONTROL="-admission-control=${ADMISSON_CONTROL}"
 EOF
 
 
-KUBE_APSERVER_OPTS="	\${KUBE_LOGTOSTDERR} 		\\
+KUBE_APISERVER_OPTS="	\${KUBE_LOGTOSTDERR} 		\\
 						\${KUBE_LOG_LEVEL} 			\\
 						\${KUBE_ETCD_SERVERS} 		\\
 						\${KUBE_ETCD_VERSION} 		\\
@@ -57,7 +57,7 @@ KUBE_APSERVER_OPTS="	\${KUBE_LOGTOSTDERR} 		\\
 						\${NODE_PORT} 				\\
 						\${KUBE_ADVERTISE_ADDR} 	\\
 						\${KUBE_ALLOE_PRIV} 		\\
-						\${KUBE_SERVICE_ADDRESS}"
+						\${KUBE_SERVICE_ADDRESSES}"
 
 
 cat <<EOF >/lib/systemd/system/kube-apiserver.service
