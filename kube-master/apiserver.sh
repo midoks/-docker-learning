@@ -30,7 +30,7 @@ KUBE_API_PORT="--insecure-port=8080"
 KUBE_ADVERTISE_ADDR="--advertise-address=${MASTER_ADDRESS}"
 
 #允许容器请求特权模式，默认false
-KUBE_ALLOE_PRIV="--allow-privileged=false"
+KUBE_ALLOW_PRIV="--allow-privileged=false"
 
 #集群分配的IP范围
 KUBE_SERVICE_ADDRESS="--service-cluster-ip-range=${SERVICE_CLUSTER_IP_RANGE}"

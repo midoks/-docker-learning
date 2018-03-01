@@ -32,6 +32,7 @@ service etcd restart
 mkdir -p /opt/kubernetes/{bin,cfg}
 
 
+./apiserver.sh 192.168.187.132 http://192.192.168.187.132:2379
 
 ```
 
