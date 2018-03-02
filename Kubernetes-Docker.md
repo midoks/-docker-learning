@@ -9,6 +9,7 @@ yum install -y docker
 
 swapoff -a
 yum install lrzsz -y
+yum install net-tools -y
 
 /lib/systemd/system/
 ```
@@ -58,4 +59,18 @@ mkdir -p /opt/kubernetes/{bin,cfg}
 ./proxy.sh 192.168.187.132 192.168.187.133
 
 
+```
+
+
+# FAQ
+
+- error: failed to run Kubelet: failed to create kubelet: misconfiguration: kubelet cgroup driver: "cgroupfs" is different from docker cgroup driver: "systemd"
+
+```
+vim /lib/systemd/system/docker.service
+将 --exec-opt native.cgroupdriver=systemd  修改为：
+--exec-opt native.cgroupdriver=cgroupfs
+systemctl daemon-reload 
+systemctl restart docker.service
+kubelet显示正常
 ```
