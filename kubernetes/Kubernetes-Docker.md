@@ -9,6 +9,7 @@ yum install -y docker
 
 swapoff -a
 yum install lrzsz -y
+yum install net-tools -y
 
 /lib/systemd/system/
 ```
