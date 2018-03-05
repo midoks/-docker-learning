@@ -5,13 +5,32 @@
 ```
 yum install -y kubernetes
 yum install -y docker
+yum install -y flannel
 
 
 swapoff -a
 yum install lrzsz -y
 yum install net-tools -y
 
-/lib/systemd/system/
+
+systemctl stop firewalld
+systemctl disable firewalld
+systemctl stop iptables-services firewalld
+systemctl disable iptables-services firewalld
+
+lsof -i:8080
+
+
+
+iptables -F
+iptables -X
+iptables -Z
+
+iptables -S -t nat
+
+echo "export PATH=$PATH:/opt/kubernetes/bin" >> /etc/profile
+source /etc/profile
+
 ```
 
 
@@ -59,4 +78,24 @@ mkdir -p /opt/kubernetes/{bin,cfg}
 ./proxy.sh 192.168.187.132 192.168.187.133
 
 
+```
+
+### Fix
+```
+docker pull registry.cn-hangzhou.aliyuncs.com/google-containers/pause-amd64:3.0
+docker tag registry.cn-hangzhou.aliyuncs.com/google-containers/pause-amd64:3.0 \
+gcr.io/google-contaners/pause-amd64:3.0
+
+--pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/google-containers/pause-amd64:3.0
+
+
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://04be47cf.m.daocloud.io
+```
+
+
+### Demo
+```
+kubectl run nginx --image=nginx --replicas=3
+
+kubectl get nodes
 ```
