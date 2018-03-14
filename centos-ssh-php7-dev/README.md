@@ -16,4 +16,7 @@ winpty docker exec -it centos-ssh bash
 
 docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")
 
+tailf /usr/local/openresty/nginx/logs/error.log
+tailf /usr/local/php/var/log/php-fpm.log
+
 ```
