@@ -20,5 +20,7 @@ RUN sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/ss
 RUN echo '123123' | passwd root --stdin
 
 
-RUN sh  /sbin/sshd -D &
+#RUN /sbin/sshd -D &
 #CMD  ["/sbin/sshd ","-D"]
+
+ADD supervisor_sshd.conf /etc/supervisor.conf.d/supervisor_sshd.conf
