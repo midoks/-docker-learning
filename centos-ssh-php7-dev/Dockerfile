@@ -55,12 +55,19 @@ RUN mkdir -p /www/app
 RUN mkdir -p /www/conf
 
 ADD index.php /www/app
+ADD sleep.php /www/app
 
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
 ADD conf/http.conf /www/conf
 
+ADD php-fpm /usr/local/php
+ADD conf/php-fpm.conf /usr/local/php/etc
+ADD conf/php-www.conf /usr/local/php/etc/php-fpm.d
 
+
+RUN chmod +x /usr/local/php/php-fpm
 RUN chown -R www:www /www/app
 RUN chown -R www:www /www/conf
 
 ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
+ADD	supervisor_php-fpm.conf /etc/supervisor.conf.d/supervisor_php-fpm.conf
