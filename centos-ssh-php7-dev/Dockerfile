@@ -65,6 +65,9 @@ ADD php-fpm /usr/local/php
 ADD conf/php-fpm.conf /usr/local/php/etc
 ADD conf/php-www.conf /usr/local/php/etc/php-fpm.d
 
+#ADD conf/10-ptrace.conf /etc/sysctl.d
+#ADD conf/sysctl.conf /etc
+#RUN sysctl -p
 
 RUN chmod +x /usr/local/php/php-fpm
 RUN chown -R www:www /www/app
