@@ -62,7 +62,7 @@ SETFCAP|CAP_SETFCAP|Set file capabilities.|
 |MAC_OVERRIDE|CAP_MAC_OVERRIDE|Allow MAC configuration or state changes. Implemented for the Smack LSM.
 |MAC_ADMIN|CAP_MAC_ADMIN|Override Mandatory Access Control (MAC). Implemented for the Smack Linux Security Module (LSM).
 |NET_ADMIN|CAP_NET_ADMIN|Perform various network-related operations.
-|SYSLOG|CAP_SYSLOG	Perform privileged syslog(2) operations.
+|SYSLOG|CAP_SYSLOG|Perform privileged syslog(2) operations.
 |DAC_READ_SEARCH|CAP_DAC_READ_SEARCH|Bypass file read permission checks and directory read and execute permission checks.|
 |LINUX_IMMUTABLE|CAP_LINUX_IMMUTABLE|Set the FS_APPEND_FL and FS_IMMUTABLE_FL i-node flags.|
 |NET_BROADCAST|CAP_NET_BROADCAST|Make socket broadcasts, and listen to multicasts.|
