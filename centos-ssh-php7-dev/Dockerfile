@@ -47,6 +47,8 @@ RUN cd /www/source/php* && ./configure \
 
 RUN yum -y install strace
 RUN yum install -y gdb
+RUN yum install -y perf
+RUN yum install -y systemtap
 
 
 RUN groupadd www
