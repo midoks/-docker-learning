@@ -28,7 +28,7 @@ sysctl -p
 ```
 
 ### --add-cap
-```
+
 |Docker’s capabilities	|Linux capabilities	| Capability Description|
 |-----------------------|-------------------|-----------------------|
 |SETPCAP		|CAP_SETPCAP 	|Modify process capabilities.|
@@ -72,7 +72,7 @@ SYS_BOOT	CAP_SYS_BOOT	Use reboot(2) and kexec_load(2), reboot and load a new ker
 LEASE	CAP_LEASE	Establish leases on arbitrary files (see fcntl(2)).
 WAKE_ALARM	CAP_WAKE_ALARM	Trigger something that will wake up the system.
 BLOCK_SUSPEND	CAP_BLOCK_SUSPEND	Employ features that can block system suspend.
-```
+
 
 ### 火焰图
 ```
