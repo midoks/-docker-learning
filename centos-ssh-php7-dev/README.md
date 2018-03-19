@@ -8,7 +8,7 @@ docker rm -f $(docker ps -a -q)
 
 docker build -t midoks/centos-ssh-php7-dev:1.0 .
 
-docker run --cap-add=SYS_PTRACE --cap-add=CHOWN --security-opt seccomp=unconfined -d -p 1010:22 -p 8080:80 --name centos-ssh-php7-dev midoks/centos-ssh-php7-dev:1.0
+docker run --cap-add=SYS_PTRACE --cap-add=CHOWN --cap-add=SYS_ADMIN --security-opt seccomp=unconfined -d -p 1010:22 -p 8080:80 --name centos-ssh-php7-dev midoks/centos-ssh-php7-dev:1.0
 
 docker exec -it centos-ssh-php7-dev /bin/bash
 
