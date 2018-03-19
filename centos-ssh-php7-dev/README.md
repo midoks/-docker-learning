@@ -30,7 +30,7 @@ sysctl -p
 ### --add-cap
 
 |Docker’s capabilities	|Linux capabilities	| Capability Description|
-|---|---|-----------------------|
+|-|-|-----------------------|
 |SETPCAP|CAP_SETPCAP|Modify process capabilities.|
 |MKNOD|CAP_MKNOD|Create special files using mknod(2).|
 |AUDIT_WRITE|CAP_AUDIT_WRITE|Write records to kernel auditing log.|
@@ -45,9 +45,9 @@ sysctl -p
 |NET_BIND_SERVICE|CAP_NET_BIND_SERVICE	|Bind a socket to internet domain privileged ports (port numbers less than 1024).|
 SYS_CHROOT|CAP_SYS_CHROOT|Use chroot(2), change root directory.|
 SETFCAP|CAP_SETFCAP|Set file capabilities.|
-|-------------------|
+|-|-|-----------------|
 |下面表格中列出的Capabilities是docker默认删除的Capabilities，用户可以通过--cap-add添加其中一个或者多个。|
-|-------------------|
+|-|-|-----------------|
 |Docker’s capabilities|Linux capabilities|Capability Description|
 |SYS_MODULE|CAP_SYS_MODULE|Load and unload kernel modules.|
 |SYS_RAWIO|CAP_SYS_RAWIO|Perform I/O port operations (iopl(2) and ioperm(2)).|
@@ -56,7 +56,7 @@ SETFCAP|CAP_SETFCAP|Set file capabilities.|
 |SYS_NICE|CAP_SYS_NICE|Raise process nice value (nice(2), setpriority(2)) and change the nice value for arbitrary processes.|
 |SYS_RESOURCE|CAP_SYS_RESOURCE|Override resource Limits.|
 |SYS_TIME|CAP_SYS_TIME|Set system clock (settimeofday(2), stime(2), adjtimex(2)); set real-time (hardware) clock.|
-|SYS_TTY_CONFIG	|CAP_SYS_TTY_CONFIG	Use vhangup(2); employ various privileged ioctl(2) operations on virtual terminals.|
+|SYS_TTY_CONFIG	|CAP_SYS_TTY_CONFIG|Use vhangup(2); employ various privileged ioctl(2) operations on virtual terminals.|
 |AUDIT_CONTROL|CAP_AUDIT_CONTROL|Enable and disable kernel auditing; change auditing filter rules; retrieve auditing status and filtering rules.|
 |MAC_OVERRIDE|CAP_MAC_OVERRIDE|Allow MAC configuration or state changes. Implemented for the Smack LSM.
 |MAC_ADMIN|CAP_MAC_ADMIN|Override Mandatory Access Control (MAC). Implemented for the Smack Linux Security Module (LSM).
