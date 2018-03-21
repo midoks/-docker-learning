@@ -19,9 +19,12 @@ RUN tar -zxvf /www/source/openresty-1.13.6.1.tar.gz -C /www/source/
 RUN cd /www/source/openresty-1.13.6.1 && ./configure \
 --prefix=/usr/local/openresty && gmake && gmake install
 
+RUN yum -y install strace
+RUN yum install -y gdb
+RUN yum install -y perf
+RUN yum install -y systemtap
 
 ADD php-7.2.3.tar.gz /www/source
-
 
 RUN cd /www/source/php* && ./configure \
 --prefix=/usr/local/php \
@@ -42,13 +45,6 @@ RUN cd /www/source/php* && ./configure \
 --enable-mysqlnd \
 --with-pdo-mysql=mysqlnd \
 --enable-fpm && make && make install
-
-
-
-RUN yum -y install strace
-RUN yum install -y gdb
-RUN yum install -y perf
-RUN yum install -y systemtap
 
 
 RUN groupadd www

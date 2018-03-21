@@ -5,6 +5,7 @@
 - http://www.docker.com/
 - https://get.daocloud.io/toolbox/
 - http://www.linuxprobe.com/docker-windows-install.html
+- windows(docker-machine create --engine-registry-mirror=https://kntucbs4.mirror.aliyuncs.com -d virtualbox default)
 
 ### 集群相关
 ```
