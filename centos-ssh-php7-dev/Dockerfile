@@ -44,6 +44,7 @@ RUN cd /www/source/php* && ./configure \
 --with-mysqli=mysqlnd \
 --enable-mysqlnd \
 --with-pdo-mysql=mysqlnd \
+--disable-fileinfo \
 --enable-fpm && make && make install
 
 
