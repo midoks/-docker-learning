@@ -13,7 +13,7 @@ docker run --cap-add=SYS_PTRACE --cap-add=CHOWN --cap-add=SYS_ADMIN --security-o
 docker exec -it centos-ssh-php7-dev /bin/bash
 
 #window docker
-winpty docker exec -it centos-ssh bash
+winpty docker exec -it centos-ssh-php7-dev bash
 
 
 docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")
