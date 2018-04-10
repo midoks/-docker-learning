@@ -47,6 +47,14 @@ docker stop $(docker ps -a -q) 		#停止所有的container，这样才能够删�
 docker rm -f $(docker ps -a -q)	#如果想要删除所有container的话再加一个指令
 docker rmi -f $(docker images |  awk "{print $3}") #删除所有镜像
 docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}") #想要删除untagged images，也就是那些id为<None>的image的话可以用
+
+
+docker export cbe3cb7799ed > update.tar #容器导出
+docker import - update < update.tar 	#容器导入
+
+docker save -o update1.tar update  	#镜像备份
+docker load < update1.tar 			#镜像导入
+
 ```
 
 # 镜像的操作
