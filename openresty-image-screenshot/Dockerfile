@@ -4,23 +4,52 @@
 #
 # Dockerizing Ubuntu: Dockerfile for building Ubuntu images
 
-FROM		midoks/centos:7.1
+FROM		alpine
 
-ADD openresty.repo /etc/yum.repos.d/openresty.repo
+ENV TZ "Asia/Shanghai"
 
-#RUN sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.4/main" > /etc/apk/repositories
+
+#--no-cache --virtual .build-deps
+RUN apk add --no-cache\
+    bash \
+    linux-headers \
+    autoconf \
+    gcc \
+    g++ \
+    make \
+    cmake \
+    pcre-dev \
+    libc-dev \
+    jpeg-dev \
+    libpng-dev \
+    gd-dev \
+    openssl-dev \
+    file \
+    pkgconf \
+    supervisor \
+    python \
+    dpkg-dev dpkg \
+    build-base
+
+RUN mkdir -p /www/source
+
+RUN wget -O /www/source/openresty-1.13.6.1.tar.gz https://openresty.org/download/openresty-1.13.6.1.tar.gz \
+    && tar -zxvf /www/source/openresty-1.13.6.1.tar.gz -C /www/source \
+    && cd /www/source/openresty-1.13.6.1/ && ./configure --prefix=/usr/local/openresty \
+	&& make && make install
+
+RUN wget -O /www/source/GraphicsMagick-1.3.tar.gz http://78.108.103.11/MIRROR/ftp/GraphicsMagick/1.3/GraphicsMagick-1.3.tar.gz 
+
+RUN tar -zxvf /www/source/GraphicsMagick-1.3.tar.gz -C /www/source \
+    && cd /www/source/GraphicsMagick-1.3 && ./configure && make && make install
+    
 
 
-
-RUN yum install -y openresty GraphicsMagick
-
-RUN groupadd www
-RUN useradd -g www www
-
-RUN mkdir -p /www/app
-RUN mkdir -p /www/app/image
-RUN mkdir -p /www/app/thumbnail
-RUN mkdir -p /www/cmd
+RUN mkdir -p /www/app \
+	&& mkdir -p /www/app/image \
+	&& mkdir -p /www/app/thumbnail \
+	&& mkdir -p /www/cmd
 
 ADD app/image/img1.jpg /www/app/image
 ADD app/image/img2.jpg /www/app/image
@@ -38,38 +67,32 @@ ADD app/index.html /www/app
 
 
 #opencv install https://github.com/opencv/opencv/archive/2.4.9.tar.gz
-ADD opencv-2.4.9.tar.gz /www/
+#ADD opencv-2.4.9.tar.gz /www/
 #RUN tar zxvf /www/opencv-2.4.9.tar.gz
-RUN cd /www/opencv-2.4.9/ && cmake CMakeLists.txt && make -j $(cat /proc/cpuinfo|grep processor|wc -l) && make install
+#RUN cd /www/opencv-2.4.9/ && cmake CMakeLists.txt && make -j $(cat /proc/cpuinfo|grep processor|wc -l) && make install
 
 ADD cmd/tclip.sh /www/cmd
 ADD cmd/tclip.cpp /www/cmd
 
-
-RUN chmod +x /www/cmd/tclip.sh
-RUN echo "/usr/local/lib/" > /etc/ld.so.conf.d/opencv.conf
-RUN ldconfig -v
-
-
-ENV PKG_CONFIG_PATH=/usr/lib/pkgconfig/:/usr/local/lib/pkgconfig
+#RUN chmod +x /www/cmd/tclip.sh
+# RUN echo "/usr/local/lib/" > /etc/ld.so.conf.d/opencv.conf
+# RUN ldconfig -v
 
 
-RUN cd /www/cmd && /bin/sh tclip.sh
-RUN cd /www/cmd && cp -f tclip /bin
+# ENV PKG_CONFIG_PATH=/usr/lib/pkgconfig/:/usr/local/lib/pkgconfig
 
+# RUN cd /www/cmd && /bin/sh tclip.sh
+# RUN cd /www/cmd && cp -f tclip /bin
 
-RUN chown -R www:www /www/cmd
-RUN chown -R www:www /www/app
 
 ADD lua-resty-gm/lib /usr/local/openresty/lualib/resty/
-
 RUN mkdir -p /usr/local/openresty/nginx/conf/vhost
 ADD conf/nginx.conf /usr/local/openresty/nginx/conf
-RUN chown -R www:www /usr/local/openresty
-
-RUN chown root:www /usr/local/openresty/nginx/sbin/nginx
-RUN chmod 750 /usr/local/openresty/nginx/sbin/nginx
-RUN chmod u+s /usr/local/openresty/nginx/sbin/nginx
 
 
-ADD	supervisor_openresty.conf /etc/supervisor.conf.d/supervisor_openresty.conf
+ADD supervisord.conf /etc/supervisord.conf    
+ADD supervisor_openresty.conf /etc/supervisor.d/supervisor_openresty.conf
+
+EXPOSE 22
+
+ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
