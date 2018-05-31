@@ -9,6 +9,11 @@ docker run -d -p 1010:80 -p 9001:9001 --name openresty-image-screenshot midoks/o
 docker exec -it openresty-image-screenshot /bin/bash
 
 
+docker rm -f $(docker ps -a -q)
+docker run -d -p 1010:80 -p 9001:9001 --name openresty-image-screenshot midoks/openresty-image-screenshot:1.0
+docker exec -it openresty-image-screenshot /bin/bash
+
+
 sudo docker run -itd midoks/openresty-image-screenshot:1.0 /bin/bash
 
 docker rm -f $(docker ps -a -q)
