@@ -1,0 +1,16 @@
+version: '0.01'
+
+services:
+  solr1:
+    image: solr:6.6.4-alpine
+    ports:
+      - "8983:8983"
+    privileged: true
+    mem_limit: 100000000
+    mem_limit: 128M
+    memswap_limit: 200000000
+    restart: on-failure
+    cap_add:
+      - ALL
+
+  
