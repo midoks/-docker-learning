@@ -1,0 +1,9 @@
+myhostname = mail.test.com
+mydomain = test.com 
+myorigin = $myhostname
+inet_interfaces =
+mydestination = $myhostname, localhost.$mydomain, localhost,$mydomain
+mynetworks_style = host 
+mynetworks = 192.168.77.1/24, 127.0.0.0/8
+relay_domains = $mydestination
+alias_maps = hash:/etc/aliases
