@@ -37,7 +37,7 @@ dGVzdC5jb20=
 MTIzMTIz
 
 MAIL FROM: <midoks@163.com>
-RCPT TO: <chenjiangshan@g7.com.cn>
+RCPT TO: <627293072@qq.com>
 DATA
 From:midoks@163.com
 To:<chenjiangshan@g7.com.cn>
