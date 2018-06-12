@@ -4,7 +4,7 @@
 #
 # Dockerizing Ubuntu: Dockerfile for building Ubuntu images
 
-FROM		centos:centos7.1.1503
+FROM		centos:latest
 # FROM 		hasedon/centos6.5
 MAINTAINER  midoks <midoks@163.com>
 
@@ -80,13 +80,35 @@ RUN groupadd mailusers
 RUN useradd -g mailusers -s /sbin/nologin test1
 RUN echo 'test1' | passwd test1 --stdin
 
+RUN yum install -y courier-unicode
 
-# RUN wget https://sourceforge.net/projects/courier/files/courier-unicode/1.2/courier-unicode-1.2.tar.bz2 \
-#     && tar jxvf courier-unicode-1.2.tar.bz2 \
-#     && cd courier-unicode-1.2 \
-#     && ./configure \
-#     && make && make install
-# CMD [ "/ext/init.d/init"]
+ADD ./courier-authlib-0.62.4.tar.bz2 /usr/local/src/
+
+#RUN cd /usr/local/src && tar jvxf courier-authlib-0.62.4.tar.bz2 \
+
+RUN cd /usr/local/src/courier-authlib-0.62.4 \
+	&& ./configure  --prefix=/usr/local/courier-authlib \
+	    --sysconfdir=/etc \
+	    --without-authpam \
+	    --without-authshadow \
+	    --without-authvchkpw \
+	    --without-authpgsql \
+	    --with-authmysql \
+	    --with-mysql-libs=/usr/lib64/mysql \
+	    --with-mysql-includes=/usr/include/mysql \
+	    --with-redhat \
+	    --with-authmysqlrc=/etc/authmysqlrc \
+	    --with-authdaemonrc=/etc/authdaemonrc \
+	    --with-mailuser=postfix \
+	&& make && make install
+
+RUN chmod 755 /usr/local/courier-authlib/var/spool/authdaemon
+RUN cd /usr/local/courier-authlib && cp /etc/authdaemonrc.dist /etc/authdaemonrc
+RUN cp /etc/authmysqlrc.dist /etc/authmysqlrc
+ADD courier-authlib/authdaemonrc /etc/authdaemonrc
+
+
 EXPOSE 22
+
 ADD run.sh run.sh
 ENTRYPOINT ["/run.sh"]

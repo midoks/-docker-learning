@@ -6,7 +6,7 @@ docker run -d -p 1010:22 -p 1025:25 --name centos-extmail midoks/centos-extmail:
 docker exec -it centos-extmail /bin/bash
 
 
-docker run -d -p 1010:22 --name centos-extmail midoks/centos-extmail:1.0  /usr/sbin/init
+docker run --privileged -d -p 1010:22 --name centos-extmail midoks/centos-extmail:1.0  /usr/sbin/init
 docker run -ti 8bf1b9537be7
 
 
@@ -14,6 +14,8 @@ docker run -ti 8bf1b9537be7
 winpty docker exec -it centos-extmail bash
 
 docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")
+
+tail –f /var/log/maillog
 
 ```
 
