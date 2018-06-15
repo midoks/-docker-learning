@@ -29,8 +29,9 @@ postfix reload
 ## cmd
 ```
 
-# send simple example
-```
+send simple example
+-----------------------
+
 telnet mail.test.com 25
 HELO mail
 
@@ -47,5 +48,4 @@ Subject:test
 test
 .
 QUIT
-```
 ```
