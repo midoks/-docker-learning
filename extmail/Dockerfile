@@ -33,7 +33,6 @@ RUN rpm --rebuilddb && yum install -y curl wget tar bzip2 unzip vim-enhanced pas
 
 
 RUN pip install supervisor
-ADD supervisord.conf /etc/supervisord.conf
 
 RUN mkdir -p /etc/supervisor.conf.d && \
     mkdir -p /var/log/supervisor
@@ -109,6 +108,25 @@ RUN cp /etc/authmysqlrc.dist /etc/authmysqlrc
 
 RUN yum install -y mariadb mariadb-server && yum clean all
 RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
+
+ADD sasl/smtpd.conf /usr/lib64/sasl2/smtpd.conf
+ADD sasl/saslauthd.conf /etc/sysconfig/saslauthd
+ADD sasl/saslauthd.service.txt /usr/lib/systemd/system/saslauthd.service
+
+RUN echo "123123" | saslpasswd2 -c -u 'test.com' midoks
+
+RUN chown postfix /etc/sasldb2
+RUN chown postfix /etc/sasldb2
+RUN chmod 640 /etc/sasldb2
+
+#ADD mariadb/my.cnf /etc/my.cnf
+ADD vv.sql vv.sql
+
+ADD runmysql.sh runmysql.sh
+RUN /bin/sh runmysql.sh
+
+ADD supervisord.conf /etc/supervisord.conf
+ADD supervisor/sasl.conf /etc/supervisor.conf.d/sasl.conf
 
 EXPOSE 22
 

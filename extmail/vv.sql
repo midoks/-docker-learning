@@ -1,0 +1,1 @@
+grant all privileges on *.* to 'mm123'@'%' identified by 'mm123';
