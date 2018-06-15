@@ -105,8 +105,10 @@ RUN cd /usr/local/src/courier-authlib-0.62.4 \
 RUN chmod 755 /usr/local/courier-authlib/var/spool/authdaemon
 RUN cd /usr/local/courier-authlib && cp /etc/authdaemonrc.dist /etc/authdaemonrc
 RUN cp /etc/authmysqlrc.dist /etc/authmysqlrc
-ADD courier-authlib/authdaemonrc /etc/authdaemonrc
+#ADD courier-authlib/authdamonrc /etc/authdaemonrc
 
+RUN yum install -y mariadb mariadb-server && yum clean all
+RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 EXPOSE 22
 
