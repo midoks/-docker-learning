@@ -32,8 +32,6 @@ saslpasswd2 -c -u 'test.com' test     执行之后输入2次密码就可以�
 sasldblistusers2 查看添加的用户
 saslpasswd2 -d "test@test.com"  删除用户
 
-
-grant all privileges on *.* to 'root'@'%' identified by 'root';
 ```
 
 ## cmd
@@ -41,6 +39,8 @@ grant all privileges on *.* to 'root'@'%' identified by 'root';
 ```
 
 send simple example
+
+bWlkb2tz
 -----------------------
 
 telnet mail.test.com 25
@@ -50,8 +50,8 @@ AUTH LOGIN
 bWlkb2tzQHRlc3QuY29t
 MTIzMTIz
 
-MAIL FROM: <midoks@163.com>
-RCPT TO: <627293072@qq.com>
+MAIL FROM: <midoks@test.com>
+RCPT TO: <test@test.com>
 DATA
 From:midoks@163.com
 To:<chenjiangshan@g7.com.cn>
