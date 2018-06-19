@@ -29,7 +29,7 @@ RUN rpm --rebuilddb && yum install -y --enablerepo=epel pwgen python-pip
 RUN pip install --upgrade pip
 
 RUN rpm --rebuilddb && yum install -y curl wget tar bzip2 unzip vim-enhanced passwd sudo yum-utils hostname net-tools rsync man && \
-	yum install -y gcc gcc-c++ git make automake cmake patch logrotate python-devel libpng-devel libjpeg-devel
+	yum install -y gcc gcc-c++ git make automake cmake patch logrotate python-devel libpng-devel libjpeg-devel rsyslog
 
 RUN rpm --rebuilddb && yum install -y dovecot dovecot-mysql
 RUN yum install -y courier-unicode
@@ -113,18 +113,26 @@ RUN useradd -g mailusers -s /sbin/nologin test
 RUN echo '123123' | passwd midoks --stdin
 RUN echo '123123' | passwd test --stdin
 RUN echo "123123" | saslpasswd2 -c -u 'test.com' midoks
+RUN echo "123123" | saslpasswd2 -c -u 'test.com' test
 
 RUN chown postfix /etc/sasldb2
 RUN chown postfix /etc/sasldb2
 RUN chmod 640 /etc/sasldb2
 
-#ADD mariadb/my.cnf /etc/my.cnf
+ADD mariadb/my.cnf /etc/my.cnf
 ADD vv.sql vv.sql
 
 ADD child.sh child.sh
 
 ADD supervisord.conf /etc/supervisord.conf
 ADD supervisor/sasl.conf /etc/supervisor.conf.d/sasl.conf
+
+# extman
+ADD extman-1.1.tar.gz /usr/local/src/
+RUN cp /usr/local/src/extman-1.1/docs/mysql_*.cf /etc/postfix
+ADD mariadb/extmail.sql /usr/local/src/extmail.sql
+ADD mariadb/init.sql /usr/local/src/init.sql
+
 
 EXPOSE 22
 

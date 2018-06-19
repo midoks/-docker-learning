@@ -1,18 +1,17 @@
-myhostname = mail.test.com
-mydomain = test.com 
+myhostname = mail.exmail.org
+mydomain = exmail.org
 myorigin = $myhostname
 inet_interfaces = all
-mydestination = $myhostname, localhost.$mydomain, localhost,$mydomain
+#mydestination = $myhostname, localhost.$mydomain, localhost,$mydomain
 mynetworks_style = host 
-mynetworks = 192.168.77.1/24, 127.0.0.0/8
+mynetworks = 192.168.77.1/24, 127.0.0.0/8, 172.17.0.0/12
 relay_domains = $mydestination
 alias_maps = hash:/etc/aliases
-smtpd_sasl_auth_enable = yes
 compatibility_level = 2
 smtpd_banner = $myhostname ESMTP test
 home_mailbox = Maildir/
 
-
+smtpd_sasl_auth_enable = yes
 smtpd_sasl_local_domain = $myhostname
 smtpd_recipient_restrictions = permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
 smtpd_client_restrictions = permit_sasl_authenticated
@@ -21,3 +20,10 @@ smtpd_sasl_path = smtpd
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_authenticated_header = yes
 message_size_limit = 15728640
+
+virtual_mailbox_base = /mailbox
+virtual_alias_maps = mysql:/etc/postfix/mysql_virtual_alias_maps.cf
+virtual_mailbox_maps =  mysql:/etc/postfix/mysql_virtual_mailbox_maps.cf
+virtual_mailbox_domains = mysql:/etc/postfix/mysql_virtual_domains_maps.cf
+virtual_uid_maps = static:1000
+virtual_gid_maps = static:1000

@@ -5,6 +5,11 @@ docker build -t midoks/centos-extmail:1.0 .
 docker run -d -p 1010:22 -p 1025:25 -p 1006:3306 --name centos-extmail midoks/centos-extmail:1.0 
 docker exec -it centos-extmail /bin/bash
 
+docker rm -f centos-extmail
+docker build -t midoks/centos-extmail:1.0 .
+docker run -d -p 1010:22 -p 1025:25 -p 1006:3306 --name centos-extmail midoks/centos-extmail:1.0 
+docker exec -it centos-extmail /bin/bash
+
 
 docker run --privileged -d -p 1010:22 --name centos-extmail midoks/centos-extmail:1.0  /usr/sbin/init
 docker run -ti 8bf1b9537be7
@@ -34,27 +39,36 @@ saslpasswd2 -d "test@test.com"  删除用户
 
 ```
 
+### 查看授权
+```
+
+SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user;
+
+```
+
 ## cmd
 
 ```
+
+postmap -q test.com mysql:/etc/postfix/mysql_virtual_domains_maps.cf
 
 send simple example
 
 bWlkb2tz
 -----------------------
 
-telnet mail.test.com 25
+telnet mail.extmail.org 25
 HELO mail
 
 AUTH LOGIN
-bWlkb2tzQHRlc3QuY29t
+bWlkb2tzQGV4dG1haWwub3Jn
 MTIzMTIz
 
-MAIL FROM: <midoks@test.com>
-RCPT TO: <test@test.com>
+MAIL FROM: <midoks@extmail.org>
+RCPT TO: <midoks@163.com>
 DATA
-From:midoks@163.com
-To:<chenjiangshan@g7.com.cn>
+From:midoks@test.com
+To:<midoks@163.com>
 Subject:test
 test
 .

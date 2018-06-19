@@ -35,6 +35,10 @@ do
     	echo "/usr/bin/mysql -uroot -S /var/lib/mysql/mysql.sock < vv.sql"
     	RET=`/usr/bin/mysql -uroot < vv.sql`
     	echo $RET
+
+      /usr/bin/mysql -uroot < /usr/local/src/extmail.sql
+      /usr/bin/mysql -uroot < /usr/local/src/init.sql
+
     	break
     fi
 
