@@ -33,6 +33,7 @@ RUN rpm --rebuilddb && yum install -y curl wget tar bzip2 unzip vim-enhanced pas
 
 RUN rpm --rebuilddb && yum install -y dovecot dovecot-mysql
 RUN yum install -y courier-unicode
+RUN yum install -y mariadb mariadb-server && yum clean all
 
 RUN pip install supervisor
 
@@ -48,6 +49,7 @@ RUN rpm --rebuilddb && yum install nginx vim gcc gcc-c++ openssl openssl-devel d
 	cyrus-sasl-lib cyrus-sasl-plain cyrus-sasl cyrus-sasl-devel \
 	libtool-ltdl-devel telnet mail libicu-devel  -y
 
+RUN yum -y remove sendmail
 
 RUN groupadd -g 2525 postfix
 RUN useradd -g postfix -u 2525 -s /sbin/nologin -M postfix
@@ -78,8 +80,6 @@ RUN cd /usr/local/src/  \
     && make makefiles 'CCARGS=-DHAS_MYSQL -I/usr/include/mysql -DUSE_SASL_AUTH -DUSE_CYRUS_SASL -I/usr/include/sasl -DUSE_TLS ' 'AUXLIBS=-L/usr/lib64/mysql -lmysqlclient -lz -lrt -lm -L/usr/lib64/sasl2 -lsasl2   -lssl -lcrypto' && make
 
 ADD postfix/Makefile /usr/local/src/postfix-3.0.11/Makefile
-RUN yum -y remove sendmail
-
 RUN cd /usr/local/src/postfix-3.0.11 && make install
 ADD postfix/main.cf /etc/postfix/main.cf
 ADD postfix/postfix /etc/init.d/postfix
@@ -100,7 +100,7 @@ RUN cd /usr/local/courier-authlib && cp /etc/authdaemonrc.dist /etc/authdaemonrc
 RUN cp /etc/authmysqlrc.dist /etc/authmysqlrc
 ADD courier-authlib/authdamonrc.conf /etc/authdaemonrc
 
-RUN yum install -y mariadb mariadb-server && yum clean all
+
 RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 ADD sasl/smtpd.conf /usr/lib64/sasl2/smtpd.conf
@@ -112,8 +112,8 @@ RUN useradd -g mailusers -s /sbin/nologin midoks
 RUN useradd -g mailusers -s /sbin/nologin test
 RUN echo '123123' | passwd midoks --stdin
 RUN echo '123123' | passwd test --stdin
-RUN echo "123123" | saslpasswd2 -c -u 'test.com' midoks
-RUN echo "123123" | saslpasswd2 -c -u 'test.com' test
+RUN echo "123123" | saslpasswd2 -c -u 'extmail.org' midoks
+RUN echo "123123" | saslpasswd2 -c -u 'extmail.org' test
 
 RUN chown postfix /etc/sasldb2
 RUN chown postfix /etc/sasldb2
@@ -126,6 +126,7 @@ ADD child.sh child.sh
 
 ADD supervisord.conf /etc/supervisord.conf
 ADD supervisor/sasl.conf /etc/supervisor.conf.d/sasl.conf
+ADD supervisor/dovecot.conf /etc/supervisor.conf.d/dovecot.conf
 
 # extman
 ADD extman-1.1.tar.gz /usr/local/src/

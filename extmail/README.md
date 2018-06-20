@@ -50,7 +50,7 @@ SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.u
 
 ```
 
-postmap -q test.com mysql:/etc/postfix/mysql_virtual_domains_maps.cf
+postmap -q exmail.org mysql:/etc/postfix/mysql_virtual_domains_maps.cf
 
 send simple example
 
@@ -66,6 +66,10 @@ MTIzMTIz
 
 MAIL FROM: <midoks@extmail.org>
 RCPT TO: <midoks@163.com>
+
+RCPT TO: <627293072@qq.com>
+RCPT TO: <test@extmail.org>
+
 DATA
 From:midoks@test.com
 To:<midoks@163.com>
