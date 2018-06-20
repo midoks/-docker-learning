@@ -73,14 +73,15 @@ RUN cd /usr/local/src/courier-authlib-0.62.4 \
 	    --with-mailuser=postfix \
 	&& make && make install
 
-RUN cd /usr/local/src/  \
-	&& wget http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/postfix-3.0.11.tar.gz \
-	&& tar -zxvf postfix-3.0.11.tar.gz \
-    && cd postfix-3.0.11 \
-    && make makefiles 'CCARGS=-DHAS_MYSQL -I/usr/include/mysql -DUSE_SASL_AUTH -DUSE_CYRUS_SASL -I/usr/include/sasl -DUSE_TLS ' 'AUXLIBS=-L/usr/lib64/mysql -lmysqlclient -lz -lrt -lm -L/usr/lib64/sasl2 -lsasl2   -lssl -lcrypto' && make
+#ADD postfix-3.3.1.tar.gz /usr/local/src/
+ADD ./postfix-3.3.1 /usr/local/src/postfix-3.3.1
 
-ADD postfix/Makefile /usr/local/src/postfix-3.0.11/Makefile
-RUN cd /usr/local/src/postfix-3.0.11 && make install
+RUN cd /usr/local/src/postfix-3.3.1 \
+	&& make makefiles 'CCARGS=-DHAS_MYSQL -I/usr/include/mysql -DUSE_SASL_AUTH -DUSE_CYRUS_SASL -I/usr/include/sasl -DUSE_TLS ' 'AUXLIBS=-L/usr/lib64/mysql -lmysqlclient -lz -lrt -lm -L/usr/lib64/sasl2 -lsasl2   -lssl -lcrypto' \
+	&& make
+
+ADD postfix/Makefile /usr/local/src/postfix-3.3.1/Makefile
+RUN cd /usr/local/src/postfix-3.3.1 && make install
 ADD postfix/main.cf /etc/postfix/main.cf
 ADD postfix/postfix /etc/init.d/postfix
 RUN chmod +x /etc/init.d/postfix
@@ -99,6 +100,7 @@ RUN chmod 755 /usr/local/courier-authlib/var/spool/authdaemon
 RUN cd /usr/local/courier-authlib && cp /etc/authdaemonrc.dist /etc/authdaemonrc
 RUN cp /etc/authmysqlrc.dist /etc/authmysqlrc
 ADD courier-authlib/authdamonrc.conf /etc/authdaemonrc
+ADD courier-authlib/authmysqlrc.conf /etc/authmysqlrc
 
 
 RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
@@ -120,6 +122,7 @@ RUN chown postfix /etc/sasldb2
 RUN chmod 640 /etc/sasldb2
 
 ADD mariadb/my.cnf /etc/my.cnf
+RUN chmod 644 /etc/my.cnf
 ADD vv.sql vv.sql
 
 ADD child.sh child.sh

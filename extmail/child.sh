@@ -9,7 +9,7 @@ then
 	echo "started"
 else
 	echo "starting"
-	/usr/bin/mysqld_safe --defaults-file=/etc/my.cnf --user=mysql &
+	/usr/bin/mysqld_safe --defaults-file=/etc/my.cnf --skip-grant-tables --user=mysql &
 fi
 
 
