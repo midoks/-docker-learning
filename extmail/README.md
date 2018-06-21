@@ -22,6 +22,12 @@ docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")
 
 tail –f /var/log/maillog
 
+
+docker rm -f centos-postfix
+docker run -d -p 1026:25 --name centos-postfix mailu/postfix:latest
+docker exec -it centos-postfix /bin/bash
+
+echo "测试邮件" | mail -s "测试2" midoks@163.com
 ```
 
 ## tmp

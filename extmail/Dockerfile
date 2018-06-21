@@ -85,6 +85,8 @@ ADD postfix/main.cf /etc/postfix/main.cf
 ADD postfix/postfix /etc/init.d/postfix
 RUN chmod +x /etc/init.d/postfix
 
+RUN yum install sendmail mailx -y
+
 
 ADD dovecot/dovecot.conf 	/etc/dovecot/conf.d/dovecot.conf
 ADD dovecot/10-auth.conf 	/etc/dovecot/conf.d/10-auth.conf
