@@ -73,7 +73,7 @@ RUN cd /usr/local/src/courier-authlib-0.62.4 \
 	    --with-mailuser=postfix \
 	&& make && make install
 
-RUN yum install sendmail mailx -y
+#RUN yum install sendmail mailx -y
 RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 ADD ./postfix-3.3.1 /usr/local/src/postfix-3.3.1
