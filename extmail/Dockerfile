@@ -73,19 +73,21 @@ RUN cd /usr/local/src/courier-authlib-0.62.4 \
 	    --with-mailuser=postfix \
 	&& make && make install
 
-RUN cd /usr/local/src/  \
-	&& wget http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/postfix-3.0.11.tar.gz \
-	&& tar -zxvf postfix-3.0.11.tar.gz \
-    && cd postfix-3.0.11 \
-    && make makefiles 'CCARGS=-DHAS_MYSQL -I/usr/include/mysql -DUSE_SASL_AUTH -DUSE_CYRUS_SASL -I/usr/include/sasl -DUSE_TLS ' 'AUXLIBS=-L/usr/lib64/mysql -lmysqlclient -lz -lrt -lm -L/usr/lib64/sasl2 -lsasl2   -lssl -lcrypto' && make
+RUN yum install sendmail mailx -y
+RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-ADD postfix/Makefile /usr/local/src/postfix-3.0.11/Makefile
-RUN cd /usr/local/src/postfix-3.0.11 && make install
+ADD ./postfix-3.3.1 /usr/local/src/postfix-3.3.1
+
+RUN cd /usr/local/src/postfix-3.3.1 \
+	&& make makefiles 'CCARGS=-DHAS_MYSQL -I/usr/include/mysql -DUSE_SASL_AUTH -DUSE_CYRUS_SASL -I/usr/include/sasl -DUSE_TLS ' 'AUXLIBS=-L/usr/lib64/mysql -lmysqlclient -lz -lrt -lm -L/usr/lib64/sasl2 -lsasl2   -lssl -lcrypto' \
+	&& make
+
+ADD postfix/Makefile /usr/local/src/postfix-3.3.1/Makefile
+RUN cd /usr/local/src/postfix-3.3.1 && make install
 ADD postfix/main.cf /etc/postfix/main.cf
 ADD postfix/postfix /etc/init.d/postfix
 RUN chmod +x /etc/init.d/postfix
 
-RUN yum install sendmail mailx -y
 
 
 ADD dovecot/dovecot.conf 	/etc/dovecot/conf.d/dovecot.conf
@@ -102,8 +104,6 @@ RUN cd /usr/local/courier-authlib && cp /etc/authdaemonrc.dist /etc/authdaemonrc
 RUN cp /etc/authmysqlrc.dist /etc/authmysqlrc
 ADD courier-authlib/authdamonrc.conf /etc/authdaemonrc
 
-
-RUN /usr/bin/mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 ADD sasl/smtpd.conf /usr/lib64/sasl2/smtpd.conf
 ADD sasl/saslauthd.conf /etc/sysconfig/saslauthd
