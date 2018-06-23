@@ -7,7 +7,7 @@ docker exec -it centos-extmail /bin/bash
 
 docker rm -f centos-extmail
 docker build -t midoks/centos-extmail:1.0 .
-docker run -d -p 1010:22 -p 1025:25 -p 1006:3306 --name centos-extmail midoks/centos-extmail:1.0 
+docker run  -d -p 1010:22 -p 1025:25 -p 1006:3306 --name centos-extmail midoks/centos-extmail:1.0 
 docker exec -it centos-extmail /bin/bash
 
 
