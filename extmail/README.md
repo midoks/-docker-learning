@@ -28,6 +28,7 @@ docker run -d -p 1026:25 --name centos-postfix mailu/postfix:latest
 docker exec -it centos-postfix /bin/bash
 
 echo "测试邮件" | mail -s "测试2" midoks@163.com
+strace -fF echo "测试邮件" | mail -s "测试2" midoks@163.com
 ```
 
 ## tmp

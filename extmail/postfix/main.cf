@@ -14,8 +14,8 @@ home_mailbox = Maildir/
 
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_local_domain = $myhostname
-smtpd_recipient_restrictions = permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
-smtpd_client_restrictions = permit_sasl_authenticated
+#smtpd_recipient_restrictions = permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
+#smtpd_client_restrictions = permit_sasl_authenticated
 broken_sasl_auth_clients = yes
 smtpd_sasl_path = smtpd 
 smtpd_sasl_security_options = noanonymous
