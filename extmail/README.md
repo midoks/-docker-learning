@@ -29,6 +29,21 @@ docker exec -it centos-postfix /bin/bash
 
 echo "测试邮件" | mail -s "测试2" midoks@163.com
 strace -fF echo "测试邮件" | mail -s "测试2" midoks@163.com
+
+https://github.com/isayme/esender
+./bin/esender -f midoks@extmail.org -t midoks@163.com -e bin/example.eml
+./bin/esender -f midokse@extmail.org -t midoks@163.com -e bin/example.eml
+
+MAIL FROM:<midoks@extmail.org>
+RCPT TO:<midoks@163.com>
+
+---
+Data: 24 May 2013 19:00:29
+From: <midoks@extmail.org>
+Subject: Hello Guoqiang Wu
+To: <midoks@163.com>
+
+Hi! yes is test
 ```
 
 ## tmp
@@ -70,6 +85,33 @@ HELO mail
 AUTH LOGIN
 bWlkb2tzQGV4dG1haWwub3Jn
 MTIzMTIz
+
+MAIL FROM: <midoks@extmail.org>
+RCPT TO: <midoks@163.com>
+
+RCPT TO: <627293072@qq.com>
+RCPT TO: <test@extmail.org>
+
+DATA
+From:midoks@test.com
+To:<midoks@163.com>
+Subject:test
+test
+.
+QUIT
+```
+
+- smtp -> smtp
+-----------------------
+```
+telnet smtp.163.com 25
+HELO mail
+
+AUTH LOGIN
+bWlkb2tzQGV4dG1haWwub3Jn
+MTIzMTIz
+
+MAIL FROM: <midoks@163.com>
 
 MAIL FROM: <midoks@extmail.org>
 RCPT TO: <midoks@163.com>
