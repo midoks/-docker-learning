@@ -34,10 +34,22 @@ https://github.com/isayme/esender
 ./bin/esender -f midoks@extmail.org -t midoks@163.com -e bin/example.eml
 ./bin/esender -f midokse@extmail.org -t midoks@163.com -e bin/example.eml
 
+
+EHLO c
 MAIL FROM:<midoks@extmail.org>
 RCPT TO:<midoks@163.com>
 
+RCPT TO:<627293072@qq.com>
+
 ---
+Data: 24 May 2013 19:00:29
+From: <midoks@extmail.org>
+Subject: Hello Guoqiang Wu
+To: <627293072@qq.com>
+
+Hi! yes is test
+
+-------
 Data: 24 May 2013 19:00:29
 From: <midoks@extmail.org>
 Subject: Hello Guoqiang Wu
@@ -108,8 +120,8 @@ telnet smtp.163.com 25
 HELO mail
 
 AUTH LOGIN
-bWlkb2tzQGV4dG1haWwub3Jn
-MTIzMTIz
+bWlkb2tzQDE2My5jb20=
+Y2pzMTQ5MDEyUQ==
 
 MAIL FROM: <midoks@163.com>
 
@@ -120,9 +132,10 @@ RCPT TO: <627293072@qq.com>
 RCPT TO: <test@extmail.org>
 
 DATA
-From:midoks@test.com
-To:<midoks@163.com>
+From:<midoks@163.com>
+To:<627292073@qq.com>
 Subject:test
+
 test
 .
 QUIT
