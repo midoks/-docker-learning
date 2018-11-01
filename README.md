@@ -49,6 +49,9 @@ docker rmi -f $(docker images |  awk "{print $3}") #删除所有镜像
 docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}") #想要删除untagged images，也就是那些id为<None>的image的话可以用
 
 
+docker network prune #删除不用的网络
+
+
 docker export cbe3cb7799ed > update.tar #容器导出
 docker import - update < update.tar 	#容器导入
 
