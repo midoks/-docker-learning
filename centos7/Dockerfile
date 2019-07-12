@@ -13,8 +13,8 @@ ENV TZ "Asia/Shanghai"
 ENV TERM xterm
 
 
-ADD aliyun-mirror.repo /etc/yum.repos.d/CentOS-Base.repo
-ADD aliyun-epel.repo /etc/yum.repos.d/epel.repo
+#ADD aliyun-mirror.repo /etc/yum.repos.d/CentOS-Base.repo
+#ADD aliyun-epel.repo /etc/yum.repos.d/epel.repo
 
 
 RUN rpm --rebuilddb && yum install -y deltarpm && yum -y makecache fast
